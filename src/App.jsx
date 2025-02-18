@@ -2,7 +2,6 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} fr
 import MainLayout from './components/layouts/MainLayout.jsx';
 import HomePage from './components/pages/HomePage.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
-import MastersPage from "./components/pages/MastersPage.jsx";
 import NewsPage from "./components/pages/NewsPage.jsx";
 import CompetitionsPage from "./components/pages/CompetitionsPage.jsx";
 import ShopPage from "./components/pages/ShopPage.jsx";
@@ -20,7 +19,6 @@ const App = () => {
                 <Route path='/chevaigne' element={<ChevaignePage/>}/>
                 <Route path='/saint-gregoire' element={<SaintGregoirePage/>}/>
                 <Route path='/saulnieres' element={<SaulnieresPage/>}/>
-                <Route path='/enseignants' element={<MastersPage/>}/>
                 <Route path='/actualités' element={<NewsPage/>}/>
                 <Route path='/compétitions' element={<CompetitionsPage/>}/>
                 <Route path='/boutique' element={<ShopPage/>}/>

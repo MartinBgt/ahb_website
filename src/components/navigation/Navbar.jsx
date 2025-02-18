@@ -74,13 +74,6 @@ const Navbar = () => {
                         </div>
                     )}
                 </div>
-
-                <NavLink
-                    to="/enseignants"
-                    className={({isActive}) => `h-full flex items-center ${SpanLinksStyle({isActive})}`}
-                >
-                    Enseignants
-                </NavLink>
                 <NavLink
                     to="/actualités"
                     className={({isActive}) => `h-full flex items-center ${SpanLinksStyle({isActive})}`}
