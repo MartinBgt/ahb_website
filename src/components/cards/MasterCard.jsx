@@ -4,7 +4,7 @@ const MasterCards = ({link, names, tel, email, linkCta}) => {
 
     return (
         <div className="relative bg-p-beigeCards flex-col inline-flex w-1/6 pb-16 rounded-2xl">
-            <div className="w-full h-48 overflow-hidden  rounded-2xl">
+            <div className="w-full h-48 min-h-48 max-h-48 overflow-hidden rounded-2xl">
                 <img className="w-full h-full object-cover object-top" src={link} alt={names}/>
             </div>
             <div className="px-4">
