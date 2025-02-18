@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-karla: 'Karla', sans-serif;
+    color-scheme: light;
+}
+
+* {
+    scroll-behavior: smooth;
+    font-family: var(--font-karla);
+}
+
+@layer base {
+    /*
+    ::selection {
+        @apply bg-n-1 text-n-4;
+    }
+    */
+
+    body {
+        @apply font-karla text-sm;
+    }
+}
