@@ -1,13 +1,20 @@
 import {useEffect, useRef, useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
-import {Menu, X} from "lucide-react"; // Icônes pour le menu
 import Cta from "../ui/Cta.jsx";
+import BurgerMenu from "../ui/BurgerMenu.jsx";
+import {AnimatePresence, motion} from "framer-motion";
 
 const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const dropdownRef = useRef(null);
     const location = useLocation();
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    const toggleMenu = () => {
+        setIsChecked((prev) => !prev);
+    };
 
     const isClubActive = ["/chevaigne", "/saulnieres", "/saint-gregoire"].includes(location.pathname);
 
@@ -94,62 +101,134 @@ const Navbar = () => {
                         <Cta>Nous rejoindre</Cta>
                     </NavLink>
 
-                    {/* Menu Burger */}
-                    <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                        {mobileMenuOpen ? <X size={32}/> : <Menu size={32}/>}
-                    </button>
+                    <BurgerMenu style="my-style" funct={() => {
+                        toggleMenu(), setMobileMenuOpen(!mobileMenuOpen)
+                    }} checked={isChecked}/>
                 </div>
             </nav>
 
-            {/* Menu Mobile */}
-            {mobileMenuOpen && (
-                <div className="fixed top-20 left-0 w-full bg-white shadow-lg p-6 flex flex-col space-y-4 z-50">
-                    <NavLink to="/" className="text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        Accueil
-                    </NavLink>
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{opacity: 0, y: -20}}  // Départ invisible, légèrement en haut
+                        animate={{opacity: 1, y: 0}}  // Apparition fluide
+                        exit={{opacity: 0, y: -20}}  // Disparition fluide vers le haut
+                        transition={{duration: 0.3, ease: "easeInOut"}} // Animation douce
+                        className="fixed top-20 left-0 w-full bg-white shadow-lg p-6 flex flex-col space-y-4 z-50"
+                    >
+                        <NavLink
+                            to="/"
+                            className="text-lg"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                setIsChecked(false);
+                            }}
+                        >
+                            Accueil
+                        </NavLink>
 
-                    {/* Dropdown Mobile */}
-                    <div>
-                        <button className="text-lg flex justify-between w-full"
-                                onClick={() => setDropdownOpen(!dropdownOpen)}>
-                            Nos clubs
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10L12 15L17 10" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"
-                                      strokeLinejoin="round"/>
-                            </svg>
-                        </button>
-                        {dropdownOpen && (
-                            <div className="pl-4 mt-2 space-y-2">
-                                <NavLink to="/chevaigne" className="block" onClick={() => setMobileMenuOpen(false)}>
-                                    Chevaigné
-                                </NavLink>
-                                <NavLink to="/saint-gregoire" className="block"
-                                         onClick={() => setMobileMenuOpen(false)}>
-                                    Saint-Grégoire
-                                </NavLink>
-                                <NavLink to="/saulnieres" className="block" onClick={() => setMobileMenuOpen(false)}>
-                                    Saulnières
-                                </NavLink>
-                            </div>
-                        )}
-                    </div>
+                        {/* Dropdown Mobile */}
+                        <div>
+                            <button
+                                className="text-lg flex justify-between w-full"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                            >
+                                Nos clubs
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 10L12 15L17 10" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"
+                                          strokeLinejoin="round"/>
+                                </svg>
+                            </button>
 
-                    <NavLink to="/actualités" className="text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        Actualités
-                    </NavLink>
-                    <NavLink to="/compétitions" className="text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        Compétitions
-                    </NavLink>
-                    <NavLink to="/boutique" className="text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        Boutique
-                    </NavLink>
+                            <AnimatePresence>
+                                {dropdownOpen && (
+                                    <motion.div
+                                        initial={{opacity: 0, y: -10}}
+                                        animate={{opacity: 1, y: 0}}
+                                        exit={{opacity: 0, y: -10}}
+                                        transition={{duration: 0.2}}
+                                        className="pl-4 mt-2 space-y-2"
+                                    >
+                                        <NavLink
+                                            to="/chevaigne"
+                                            className="block"
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                setIsChecked(false);
+                                            }}
+                                        >
+                                            Chevaigné
+                                        </NavLink>
+                                        <NavLink
+                                            to="/saint-gregoire"
+                                            className="block"
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                setIsChecked(false);
+                                            }}
+                                        >
+                                            Saint-Grégoire
+                                        </NavLink>
+                                        <NavLink
+                                            to="/saulnieres"
+                                            className="block"
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                setIsChecked(false);
+                                            }}
+                                        >
+                                            Saulnières
+                                        </NavLink>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
-                    <NavLink to="/nous-rejoindre">
-                        <Cta>Nous rejoindre</Cta>
-                    </NavLink>
-                </div>
-            )}
+                        <NavLink
+                            to="/actualités"
+                            className="text-lg"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                setIsChecked(false);
+                            }}
+                        >
+                            Actualités
+                        </NavLink>
+                        <NavLink
+                            to="/compétitions"
+                            className="text-lg"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                setIsChecked(false);
+                            }}
+                        >
+                            Compétitions
+                        </NavLink>
+                        <NavLink
+                            to="/boutique"
+                            className="text-lg"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                setIsChecked(false);
+                            }}
+                        >
+                            Boutique
+                        </NavLink>
+
+                        <NavLink
+                            to="/nous-rejoindre"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                setIsChecked(false);
+                            }}
+                        >
+                            <Cta>Nous rejoindre</Cta>
+                        </NavLink>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
 
             {/* Pour éviter que le contenu soit caché derrière la navbar */}
             <div className="h-20"></div>
