@@ -23,6 +23,7 @@ const Navbar = () => {
             ? "relative text-p-black leading-8 no-underline before:content-[''] before:absolute before:bottom-[-0.25rem] before:left-0 before:w-full before:h-[2px] before:bg-pink-light before:rounded-sm"
             : "relative text-p-black leading-8 no-underline before:content-[''] before:absolute before:bottom-[-0.25rem] before:right-0 before:w-0 before:h-[2px] before:bg-pink-light before:rounded-sm before:transition-all before:duration-400 hover:before:w-full hover:before:left-0";
 
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -34,6 +35,7 @@ const Navbar = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
 
     return (
         <>
@@ -222,6 +224,7 @@ const Navbar = () => {
                                 setMobileMenuOpen(false);
                                 setIsChecked(false);
                             }}
+                            className="w-max"
                         >
                             <Cta>Nous rejoindre</Cta>
                         </NavLink>

@@ -19,7 +19,6 @@ const Footer = () => {
                         <Link to="/chevaigne" className="w-max hover:text-pink-dark">Club de Chevaigné</Link>
                         <Link to="/saint-gregoire" className="w-max hover:text-pink-dark">Club de Saint-Grégoire</Link>
                         <Link to="/saulnieres" className="w-max hover:text-pink-dark">Club de Saulnières</Link>
-                        <Link to="/enseignants" className="w-max hover:text-pink-dark">Enseignants</Link>
                         <Link to="/actualités" className="w-max hover:text-pink-dark">Actualités</Link>
                         <Link to="/compétitions" className="w-max hover:text-pink-dark">Compétitions</Link>
                         <Link to="/boutique" className="w-max hover:text-pink-dark">Boutique</Link>
