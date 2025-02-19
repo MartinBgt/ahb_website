@@ -1,9 +1,24 @@
+import {useMediaQuery} from "react-responsive";
 import Marquee from "react-fast-marquee";
 
-const Partners = () => {
+const MyMarquee = () => {
+
+    let gradient = 50;
+    let speed = 100;
+    if (useMediaQuery({minWidth: 767})) {
+        gradient = 200;
+        speed = 50;
+    }
+
     return (
         <div className="py-12 bg-p-white ">
-            <Marquee className="bg-p-white" autoFill={true} speed={50} gradient={true} gradientWidth={200}>
+            <Marquee
+                className="bg-p-white"
+                autoFill={true}
+                speed={speed}
+                gradient={true} // Désactive le gradient sur mobile
+                gradientWidth={gradient}
+            >
                 <img src="/Images/Partenaires/ffe.png" alt="Logo de la FFE"
                      className="w-48 h-32 object-contain rounded-lg mx-16"/>
                 <img src="/Images/Partenaires/Logo_Ille_Vilaine.png" alt="Logo de l'ille Vilaine"
@@ -22,7 +37,8 @@ const Partners = () => {
                      className="w-48 h-32 object-contain rounded-lg mx-16"/>
             </Marquee>
         </div>
-    )
-}
+    );
+};
 
-export default Partners;
+export default MyMarquee;
+

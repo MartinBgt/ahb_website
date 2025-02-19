@@ -2,18 +2,18 @@ import {Link, NavLink} from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className="bg-p-white text-p-black py-4 px-28 border-t-p-black border-[1px]">
-            <div className="grid grid-cols-3 items-center justify-evenly">
+        <footer className="bg-p-white text-p-black py-8 px-[5%] border-t-p-black border-[1px]">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
                 {/* Logo ou espace réservé */}
-                <div className="flex items-center justify-center">
+                <div className="flex items-center hidden md:block justify-center">
                     <NavLink to="/" className="h-full flex justify-center items-center">
                         <img className="h-36 w-auto" src="/Images/AHB/logo_sans_fon_noir.png" alt="Logo de L'AHB"/>
                     </NavLink>
                 </div>
 
                 {/* Navigation principale */}
-                <div className="flex justify-evenly">
-                    <div className="flex flex-col w-full">
+                <div className="flex justify-between">
+                    <div className="flex flex-col w-full md:px-[10%]">
                         <h3 className="font-bold text-2xl pb-4">Navigation</h3>
                         <Link to="/" className="w-max hover:text-pink-dark">Accueil</Link>
                         <Link to="/chevaigne" className="w-max hover:text-pink-dark">Club de Chevaigné</Link>
@@ -26,10 +26,10 @@ const Footer = () => {
                         <Link to="/nous-rejoindre" className="w-max hover:text-pink-dark">Nous rejoindre</Link>
                     </div>
                     {/* Informations de contact et réseaux sociaux */}
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full items-end md:items-start md:px-[10%]">
                         <h3 className="font-bold text-2xl pb-4">Contact</h3>
                         <a href="mailto:contact@parade-riposte.net" className="hover:text-pink-dark">
-                            contact@parade-riposte.net
+                            Email
                         </a>
                         <a href="https://www.facebook.com/Escrime.AHB/?locale=fr_FR"
                            target="_blank" rel="noopener noreferrer"

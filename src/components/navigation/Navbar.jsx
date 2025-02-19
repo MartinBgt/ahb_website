@@ -38,7 +38,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className="fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center h-20 px-6 md:px-28 z-50">
+                className="fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center h-20 px-6 md:px-8 lg:px-28 z-50">
                 {/* Logo */}
                 <NavLink to="/" className="flex items-center">
                     <img className="h-12 md:h-16 w-auto" src="/Images/AHB/logo_sans_fon_noir.png" alt="Logo de L'AHB"/>
@@ -101,7 +101,7 @@ const Navbar = () => {
                         <Cta>Nous rejoindre</Cta>
                     </NavLink>
 
-                    <BurgerMenu style="my-style" funct={() => {
+                    <BurgerMenu style="md:hidden" funct={() => {
                         toggleMenu(), setMobileMenuOpen(!mobileMenuOpen)
                     }} checked={isChecked}/>
                 </div>

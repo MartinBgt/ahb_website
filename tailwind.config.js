@@ -22,6 +22,9 @@ export default {
             boxShadow: {
                 'custom': '6px 6px 0px 0px #E2CBCB', // L'ombre personnalisée
             },
+            screens: {
+                xs: "425px", // Nouveau breakpoint personnalisé
+            },
         },
     },
     plugins: [],
