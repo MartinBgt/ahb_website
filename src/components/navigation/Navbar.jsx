@@ -6,8 +6,11 @@ import {AnimatePresence, motion} from "framer-motion";
 
 const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpenMobile, setDropdownOpenMobile] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const dropdownRefDesk = useRef(null);
+    const dropdownRefMobile = useRef(null);
     const location = useLocation();
 
     const [isChecked, setIsChecked] = useState(false);
@@ -26,8 +29,13 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setDropdownOpen(false);
+            const dropDown = document.querySelector(".dropdown")
+
+            if (window.innerWidth < 768) { // Vérifie si la largeur est inférieure à md (768px)
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target) && dropDown && !dropDown.contains(event.target)) {
+                    setIsChecked(false);
+                    setMobileMenuOpen(false);
+                }
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
@@ -36,6 +44,35 @@ const Navbar = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const handleClickOutsideDesktop = (event) => {
+            if (dropdownRefDesk.current && !dropdownRefDesk.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+
+        };
+        document.addEventListener("mousedown", handleClickOutsideDesktop);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutsideDesktop);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutsideMobile = (event) => {
+            if (window.innerWidth < 768) {
+                console.log("test")
+                if (dropdownRefMobile.current && !dropdownRefMobile.current.contains(event.target)) {
+                    console.log("test2")
+                    setDropdownOpenMobile(false);
+                }
+            }
+
+        };
+        document.addEventListener("mousedown", handleClickOutsideMobile);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutsideMobile);
+        };
+    }, []);
 
     return (
         <>
@@ -56,8 +93,10 @@ const Navbar = () => {
                     {/* Dropdown "Nos Clubs" */}
                     <div
                         className="relative h-full flex items-center cursor-pointer"
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                        ref={dropdownRef}
+                        onClick={() => {
+                            setDropdownOpen(!dropdownOpen)
+                        }}
+                        ref={dropdownRefDesk}
                     >
                         <span className={`h-full flex items-center ${SpanLinksStyle({isActive: isClubActive})}`}>
                             Nos clubs
@@ -67,7 +106,6 @@ const Navbar = () => {
                                       strokeLinejoin="round"/>
                             </svg>
                         </span>
-
                         {dropdownOpen && (
                             <div className="absolute top-full left-0 bg-white shadow-lg mt-2 w-40 z-10">
                                 <NavLink to="/chevaigne" className="block px-4 py-2 text-p-black hover:bg-p-gray">
@@ -103,132 +141,146 @@ const Navbar = () => {
                         <Cta>Nous rejoindre</Cta>
                     </NavLink>
 
-                    <BurgerMenu style="md:hidden" funct={() => {
-                        toggleMenu(), setMobileMenuOpen(!mobileMenuOpen)
-                    }} checked={isChecked}/>
+                    <div ref={dropdownRef}>
+                        <BurgerMenu style="md:hidden" funct={() => {
+                            toggleMenu(), setMobileMenuOpen(!mobileMenuOpen)
+                        }} checked={isChecked}/>
+                    </div>
                 </div>
             </nav>
 
+
             <AnimatePresence>
-                {mobileMenuOpen && (
-                    <motion.div
-                        initial={{opacity: 0, y: -20}}  // Départ invisible, légèrement en haut
-                        animate={{opacity: 1, y: 0}}  // Apparition fluide
-                        exit={{opacity: 0, y: -20}}  // Disparition fluide vers le haut
-                        transition={{duration: 0.3, ease: "easeInOut"}} // Animation douce
-                        className="fixed top-20 left-0 w-full bg-white shadow-lg p-6 flex flex-col space-y-4 z-50"
-                    >
-                        <NavLink
-                            to="/"
-                            className="text-lg"
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                setIsChecked(false);
-                            }}
-                        >
-                            Accueil
-                        </NavLink>
+                {mobileMenuOpen && (<>
+                        <motion.div
+                            initial={{opacity: 0, y: -20}}  // Départ invisible, légèrement en haut
+                            animate={{opacity: 0.5, y: 0}}  // Apparition fluide
+                            exit={{opacity: 0, y: -20}}  // Disparition fluide vers le haut
+                            transition={{duration: 0.3, ease: "easeInOut"}} // Animation douce
+                            className="top-20 bg-p-black opacity-50 h-[100vh] w-[100vw] fixed z-50 transition-opacity duration-300"
+                        />
 
-                        {/* Dropdown Mobile */}
-                        <div>
-                            <button
-                                className="text-lg flex justify-between w-full"
-                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                        <motion.div
+                            initial={{opacity: 0, y: -20}}  // Départ invisible, légèrement en haut
+                            animate={{opacity: 1, y: 0}}  // Apparition fluide
+                            exit={{opacity: 0, y: -20}}  // Disparition fluide vers le haut
+                            transition={{duration: 0.3, ease: "easeInOut"}} // Animation douce
+                            className="fixed top-20 left-0 w-full bg-white shadow-lg p-6 flex flex-col space-y-4 z-50 dropdown"
+                        >
+                            <NavLink
+                                to="/"
+                                className="text-lg"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setIsChecked(false);
+                                }}
                             >
-                                Nos clubs
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 10L12 15L17 10" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"
-                                          strokeLinejoin="round"/>
-                                </svg>
-                            </button>
+                                Accueil
+                            </NavLink>
 
-                            <AnimatePresence>
-                                {dropdownOpen && (
-                                    <motion.div
-                                        initial={{opacity: 0, y: -10}}
-                                        animate={{opacity: 1, y: 0}}
-                                        exit={{opacity: 0, y: -10}}
-                                        transition={{duration: 0.2}}
-                                        className="pl-4 mt-2 space-y-2"
-                                    >
-                                        <NavLink
-                                            to="/chevaigne"
-                                            className="block"
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                setIsChecked(false);
-                                            }}
-                                        >
-                                            Chevaigné
-                                        </NavLink>
-                                        <NavLink
-                                            to="/saint-gregoire"
-                                            className="block"
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                setIsChecked(false);
-                                            }}
-                                        >
-                                            Saint-Grégoire
-                                        </NavLink>
-                                        <NavLink
-                                            to="/saulnieres"
-                                            className="block"
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                setIsChecked(false);
-                                            }}
-                                        >
-                                            Saulnières
-                                        </NavLink>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                            {/* Dropdown Mobile */}
+                            <div>
+                                <button
+                                    className="text-lg flex justify-between w-full"
+                                    onClick={() => setDropdownOpenMobile(!dropdownOpenMobile)}
+                                    ref={dropdownRefMobile}
+                                >
+                                    Nos clubs
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10" stroke="#000000" strokeWidth="1.5"
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"/>
+                                    </svg>
+                                </button>
 
-                        <NavLink
-                            to="/actualités"
-                            className="text-lg"
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                setIsChecked(false);
-                            }}
-                        >
-                            Actualités
-                        </NavLink>
-                        <NavLink
-                            to="/compétitions"
-                            className="text-lg"
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                setIsChecked(false);
-                            }}
-                        >
-                            Compétitions
-                        </NavLink>
-                        <NavLink
-                            to="/boutique"
-                            className="text-lg"
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                setIsChecked(false);
-                            }}
-                        >
-                            Boutique
-                        </NavLink>
+                                <AnimatePresence>
+                                    {dropdownOpenMobile && (
+                                        <motion.div
+                                            initial={{opacity: 0, y: -10}}
+                                            animate={{opacity: 1, y: 0}}
+                                            exit={{opacity: 0, y: -10}}
+                                            transition={{duration: 0.2}}
+                                            className="pl-4 mt-2 space-y-2"
+                                        >
+                                            <NavLink
+                                                to="/chevaigne"
+                                                className="block"
+                                                onClick={() => {
+                                                    setMobileMenuOpen(false);
+                                                    setIsChecked(false);
+                                                }}
+                                            >
+                                                Chevaigné
+                                            </NavLink>
+                                            <NavLink
+                                                to="/saint-gregoire"
+                                                className="block"
+                                                onClick={() => {
+                                                    setMobileMenuOpen(false);
+                                                    setIsChecked(false);
+                                                }}
+                                            >
+                                                Saint-Grégoire
+                                            </NavLink>
+                                            <NavLink
+                                                to="/saulnieres"
+                                                className="block"
+                                                onClick={() => {
+                                                    setMobileMenuOpen(false);
+                                                    setIsChecked(false);
+                                                }}
+                                            >
+                                                Saulnières
+                                            </NavLink>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
 
-                        <NavLink
-                            to="/nous-rejoindre"
-                            onClick={() => {
-                                setMobileMenuOpen(false);
-                                setIsChecked(false);
-                            }}
-                            className="w-max"
-                        >
-                            <Cta>Nous rejoindre</Cta>
-                        </NavLink>
-                    </motion.div>
+                            <NavLink
+                                to="/actualités"
+                                className="text-lg"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setIsChecked(false);
+                                }}
+                            >
+                                Actualités
+                            </NavLink>
+                            <NavLink
+                                to="/compétitions"
+                                className="text-lg"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setIsChecked(false);
+                                }}
+                            >
+                                Compétitions
+                            </NavLink>
+                            <NavLink
+                                to="/boutique"
+                                className="text-lg"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setIsChecked(false);
+                                }}
+                            >
+                                Boutique
+                            </NavLink>
+
+                            <NavLink
+                                to="/nous-rejoindre"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setIsChecked(false);
+                                }}
+                                className="w-max"
+                            >
+                                <Cta>Nous rejoindre</Cta>
+                            </NavLink>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
 

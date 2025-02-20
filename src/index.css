@@ -18,8 +18,16 @@
         @apply bg-n-1 text-n-4;
     }
     */
-
     body {
         @apply font-karla text-sm;
+    }
+}
+
+@keyframes fadeOpacity {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 0;
     }
 }
