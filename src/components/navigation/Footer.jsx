@@ -21,7 +21,14 @@ const Footer = () => {
                         <Link to="/saulnieres" className="w-max hover:text-pink-dark">Club de Saulnières</Link>
                         <Link to="/actualités" className="w-max hover:text-pink-dark">Actualités</Link>
                         <Link to="/compétitions" className="w-max hover:text-pink-dark">Compétitions</Link>
-                        <Link to="/boutique" className="w-max hover:text-pink-dark">Boutique</Link>
+                        <a
+                            href="https://ker-crea.fr/367-assaut-de-haute-bretagne"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-max hover:text-pink-dark"
+                        >
+                            Boutique
+                        </a>
                         <Link to="/nous-rejoindre" className="w-max hover:text-pink-dark">Nous rejoindre</Link>
                     </div>
                     {/* Informations de contact et réseaux sociaux */}

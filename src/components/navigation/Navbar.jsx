@@ -129,10 +129,12 @@ const Navbar = () => {
                              className={({isActive}) => `h-full flex items-center ${SpanLinksStyle({isActive})}`}>
                         Compétitions
                     </NavLink>
-                    <NavLink to="/boutique"
-                             className={({isActive}) => `h-full flex items-center ${SpanLinksStyle({isActive})}`}>
+                    <a href="https://ker-crea.fr/367-assaut-de-haute-bretagne"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="h-full flex items-center">
                         Boutique
-                    </NavLink>
+                    </a>
                 </div>
 
                 {/* CTA & Menu Burger */}
@@ -258,8 +260,10 @@ const Navbar = () => {
                             >
                                 Compétitions
                             </NavLink>
-                            <NavLink
-                                to="/boutique"
+                            <a
+                                href="https://ker-crea.fr/367-assaut-de-haute-bretagne"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-lg"
                                 onClick={() => {
                                     setMobileMenuOpen(false);
@@ -267,7 +271,7 @@ const Navbar = () => {
                                 }}
                             >
                                 Boutique
-                            </NavLink>
+                            </a>
 
                             <NavLink
                                 to="/nous-rejoindre"

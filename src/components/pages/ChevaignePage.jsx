@@ -6,7 +6,7 @@ import Members from "../sections/Members.jsx";
 const ChevaignePage = () => {
     return (
         <>
-            <Presentation link="/Images/Chevaigné/accueil.jpg" title1={`Club de\n Chevaigné`}
+            <Presentation link="/Images/Chevaigné/accueil.jpg" title1={`Club de\nChevaigné`}
                           classname="object-top"></Presentation>
             <Subtitle>Les Membres</Subtitle>
             <Members link1="/Images/Chevaigné/marc-legrand.jpg" names1="Marc Legrand" statue1="Président"

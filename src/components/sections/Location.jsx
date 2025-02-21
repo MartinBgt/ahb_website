@@ -1,10 +1,21 @@
 import Map from '../ui/Map.jsx'
 import Cta from '../ui/Cta.jsx'
+import {motion, useInView} from "framer-motion";
+import {useRef} from "react";
 
 const Location = ({link, title, adress, email, tel, url}) => {
+
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true}); // Animation déclenchée une seule fois
+
     return (
         <section className="flex items-center justify-center py-8 md:py-24 bg-p-beige">
-            <div className="bg-p-beigeCards md:flex rounded-2xl shadow-2xl shadow-p-beigeCards">
+            <motion.div
+                ref={ref}
+                initial={{opacity: 0, y: 50}}
+                animate={isInView ? {opacity: 1, y: 0} : {}}
+                transition={{duration: 0.6, ease: "easeOut"}}
+                className="bg-p-beigeCards md:flex rounded-2xl shadow-2xl shadow-p-beigeCards">
                 <Map link={link}/>
                 <div className="flex flex-col pt-5 space-y-3 p-5">
                     <h3>{title}</h3>
@@ -17,7 +28,7 @@ const Location = ({link, title, adress, email, tel, url}) => {
                         <Cta pad="px-3 py-[6px]" size="text-xs">Contrat d’engagement républicain</Cta>
                     </a>
                 </div>
-            </div>
+            </motion.div>
         </section>
     )
 }

@@ -1,10 +1,20 @@
 import Cta from "../ui/Cta.jsx";
+import {motion, useInView} from "framer-motion";
+import {useRef} from "react";
 
 const MasterCards = ({link, names, tel, email, linkCta}) => {
 
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true});
+
     return (
-        <div
-            className="relative bg-p-beigeCards flex-col inline-flex w-[70%] xs:w-[50%] md:w-[30%] lg:w-[20%] my-8 pb-16 rounded-2xl shadow-2xl shadow-p-beigeCards">
+        <motion.div
+            ref={ref}
+            initial={{opacity: 0, y: 50}}
+            animate={isInView ? {opacity: 1, y: 0} : {}}
+            transition={{duration: 0.6, ease: "easeOut"}}
+            className="relative bg-p-beigeCards flex-col inline-flex w-[70%] xs:w-[50%] md:w-[30%] lg:w-[20%] my-8 pb-16 rounded-2xl shadow-2xl shadow-p-beigeCards"
+        >
             <div className="w-full h-48 min-h-48 max-h-48 overflow-hidden rounded-2xl">
                 <img className="w-full h-full object-cover object-top" src={link} alt={names}/>
             </div>
@@ -17,7 +27,7 @@ const MasterCards = ({link, names, tel, email, linkCta}) => {
                 <Cta className="absolute bottom-3 right-3" pad="px-3 py-[6px]" size="text-xs">Carte
                     Professionnelle</Cta>
             </a>
-        </div>
+        </motion.div>
     )
 }
 export default MasterCards;

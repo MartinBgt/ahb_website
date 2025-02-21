@@ -4,7 +4,6 @@ import HomePage from './components/pages/HomePage.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import NewsPage from "./components/pages/NewsPage.jsx";
 import CompetitionsPage from "./components/pages/CompetitionsPage.jsx";
-import ShopPage from "./components/pages/ShopPage.jsx";
 import JoinUsPage from "./components/pages/JoinUsPage.jsx";
 import ChevaignePage from "./components/pages/ChevaignePage.jsx";
 import SaintGregoirePage from "./components/pages/SaintGregoirePage.jsx";
@@ -21,7 +20,6 @@ const App = () => {
                 <Route path='/saulnieres' element={<SaulnieresPage/>}/>
                 <Route path='/actualités' element={<NewsPage/>}/>
                 <Route path='/compétitions' element={<CompetitionsPage/>}/>
-                <Route path='/boutique' element={<ShopPage/>}/>
                 <Route path='/nous-rejoindre' element={<JoinUsPage/>}/>
                 <Route path='*' element={<NotFoundPage/>}/>
             </Route>

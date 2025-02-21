@@ -1,11 +1,22 @@
 import {useNavigate} from "react-router-dom";
 import Cta from "../ui/Cta.jsx";
+import {motion, useInView} from "framer-motion";
+import {useRef} from "react";
 
 const ClubCards = ({imgURL, title = "Club", link}) => {
     const navigate = useNavigate(); // Hook pour naviguer programatiquement
 
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true});
+
     return (
-        <div className="shadow-2xl shadow-p-beigeCards rounded-2xl my-8">
+        <motion.div
+            ref={ref}
+            initial={{opacity: 0, y: 50}}
+            animate={isInView ? {opacity: 1, y: 0} : {}}
+            transition={{duration: 0.6, ease: "easeOut"}}
+            className="shadow-2xl shadow-p-beigeCards rounded-2xl my-8"
+        >
             <div
                 className="w-[60vw] h-[60vw] xs:w-[50vw] xs:h-[50vw] sm:w-[40vw] sm:h-[40vw] md:w-[25vw] md:h-[25vw] lg:w-[20vw] lg:h-[20vw] rounded-2xl bg-p-beigeCards shadow-custom flex items-center justify-center relative overflow-hidden"
             >
@@ -15,7 +26,7 @@ const ClubCards = ({imgURL, title = "Club", link}) => {
                     Plus d'infos
                 </Cta>
             </div>
-        </div>
+        </motion.div>
     )
 };
 export default ClubCards;
