@@ -15,6 +15,31 @@ const Navbar = () => {
 
     const [isChecked, setIsChecked] = useState(false);
 
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                // Scroll vers le bas -> cacher la navbar
+                setIsVisible(false);
+                setIsChecked(false);
+                setDropdownOpen(false);
+                setDropdownOpenMobile(false);
+                setMobileMenuOpen(false);
+            } else {
+                // Scroll vers le haut -> afficher la navbar
+                setIsVisible(true);
+            }
+            setLastScrollY(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
     const toggleMenu = () => {
         setIsChecked((prev) => !prev);
     };
@@ -77,7 +102,10 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className="fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center h-20 px-6 md:px-8 lg:px-28 z-50">
+                className={`fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center h-20 px-6 md:px-8 lg:px-28 z-50 transition-transform duration-300 ${
+                    isVisible ? "translate-y-0" : "-translate-y-full"
+                }`}
+            >
                 {/* Logo */}
                 <NavLink to="/" className="flex items-center">
                     <img className="h-12 md:h-16 w-auto" src="/Images/AHB/logo_sans_fon_noir.png" alt="Logo de L'AHB"/>
